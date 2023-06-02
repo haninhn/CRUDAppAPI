@@ -1,0 +1,12 @@
+1- Installation: 
+    download mongoDB
+    download postMain 
+    download node js
+2- Install package.json
+    npm init 
+3- Run server 
+    node server.js
+4- Install express 
+   (library providee It provides mechanisms 
+   to: Write handlers for requests with different HTTP verbs at different URL paths (routes))
+   npm Install express
