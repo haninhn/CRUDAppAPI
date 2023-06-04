@@ -1,3 +1,4 @@
+require('./config/connect'); // TELL the main classe that a have to work with DB
 const express = require('express')
 const app = express() //import express library 
 

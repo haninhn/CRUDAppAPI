@@ -11,3 +11,5 @@
     Write handlers for requests with different 
     HTTP verbs at different URL paths (routes))
    npm Install express
+5- connect to db mangoos suit a library
+   npm i mongoose 
