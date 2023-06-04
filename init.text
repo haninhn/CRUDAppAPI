@@ -1,6 +1,6 @@
 1- Installation: 
     download mongoDB
-    download postMain 
+    download postman 
     download node js
 2- Install package.json
     npm init 
