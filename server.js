@@ -9,6 +9,16 @@ app.post('/add', (req, res)=>{
     res.send('Add request received'); // Send a response to the client
 });
 
+app.get('/getAll', (req, res)=>{
+    console.log('get work');
+    res.send('Add request received'); // Send a response to the client
+});
+
+app.put('/update', (req, res)=>{
+    console.log('get work');
+    res.send('Add request received'); // Send a response to the client
+});
+
 app.listen( 3000, ()=>{ 
     console.log ('sever work');
 }); 
