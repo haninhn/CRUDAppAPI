@@ -38,7 +38,23 @@ app.post('/create ', async (req, res)=>{
     console.log('add work');
     res.send('Add request received'); 
 });
-app.get('/getAll', (req, res)=>{  
+app.get('/all', async (req, res)=>{  
+  
+  try{ 
+
+   users = await User.find({age: 21});  //find function needs time.   //find with params
+    res.send(users);
+
+  } catch(error){
+    res.send(error)
+  }
+
+  app.get('/getbyid/:id', (req, res)=>{
+    myid = req.params.id;
+    User.findById(User)
+
+  })
+
     console.log(data);
     res.send('Add request received')
 });
