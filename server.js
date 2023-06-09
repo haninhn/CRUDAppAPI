@@ -59,6 +59,8 @@ app.get('/all', async (req, res)=>{
     res.send('Add request received')
 });
 
+
+
 app.put('/update', (req, res)=>{
     console.log('update work');
     res.send('Add request received'); 
