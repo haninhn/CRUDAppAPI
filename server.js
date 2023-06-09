@@ -2,14 +2,14 @@ import './config/connect'; // TELL the main classe that a have to work with DB
 import express, { json } from 'express';
 
 
-const User = require('./config/connect');
+const User = require('./models/user'); //import the user model
 const app = express() //import express library 
 app.use(json()); //to make the app read and accept data de type JSON 
 
 
 app.post('/add', (req, res)=>{  //res: the response of the APi  // req: request contine the data that the user send in the api 
     data = req.body  //read the data in the body 
-    user= new User(data)
+    user = new User(data) //instance of user model
     user.save() //save in moongo db
             .then((savedUser)=> // if the saving succes
             {
@@ -22,7 +22,22 @@ app.post('/add', (req, res)=>{  //res: the response of the APi  // req: request 
     console.log('add work');
     res.send('Add request received'); // Send a response to the client
 });
+//request with async await
+app.post('/create ', async (req, res)=>{  
+    try{
 
+        data = req.body  
+         user= new User(data)
+         savedUser =   await user.save()   //we put await Because saving the user in DB needs time.
+         res.send(savedUser)
+
+    }catch (error){
+        res.send(error)
+    }
+
+    console.log('add work');
+    res.send('Add request received'); 
+});
 app.get('/getAll', (req, res)=>{  
     console.log(data);
     res.send('Add request received')
