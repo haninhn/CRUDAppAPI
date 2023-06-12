@@ -1,5 +1,5 @@
-import './config/connect'; // TELL the main classe that a have to work with DB
-import express, { json } from 'express';
+require('./config/connect'); // TELL the main classe that a have to work with DB
+const express = require('express')
 
 
 const User = require('./models/user'); //import the user model
@@ -41,7 +41,6 @@ app.post('/create ', async (req, res)=>{
 app.get('/all', async (req, res)=>{  
   
   try{ 
-
    users = await User.find({age: 21});  //find function needs time.   //find with params
     res.send(users);
 
