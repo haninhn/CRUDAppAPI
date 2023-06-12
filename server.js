@@ -22,7 +22,7 @@ app.post('/add', (req, res)=>{  //res: the response of the APi  // req: request 
     console.log('add work');
     res.send('Add request received'); // Send a response to the client
 });
-//request with async await
+//request addwith async await
 app.post('/create ', async (req, res)=>{  
     try{
 
@@ -66,7 +66,7 @@ app.get('/all', async (req, res)=>{
    )
   })
 
-  app.get('/userbyid/:id',async(req, res)=>{
+  app.get('/userbyid/:id',async(req, res)=>{//:id =params url params 
     try{
         id = req.params.id;
         user =  await User.findOne({_id: id })
@@ -77,19 +77,16 @@ app.get('/all', async (req, res)=>{
 
   })
 
-app.put('/update', (req, res)=>{
-    console.log('update work');
-    res.send('Add request received'); 
-})
 
+//delete api
 app.delete('/delete', (req, res)=>{
     console.log('delete work');
     res.send('delete request received'); 
 })
 
-app.delete('/delete:id', (req, res)=>{
+app.delete('/delete/:id', (req, res)=>{  //:id =params url params  
     id = req.params.id
-    user.findOneDelete({_id:id}).then(
+    User.findOneDelete({_id:id}).then(
         (deleteUser)=>{
             res.send(deletedUser)
         })
@@ -99,7 +96,19 @@ app.delete('/delete:id', (req, res)=>{
             }
         )
 })
-
+app.put('/updaten/:id', (req, res)=>{
+    id= req.params.id;
+    newData = req.body;
+    User.findByAndUpdate({_id: id}, newData).then(
+        (updatedUser)=>{
+            res.send(updatedUser)
+        })
+        .catch(
+            (err)=>{
+                res.send(err)
+            }
+        )
+})
 app.listen( 3000, ()=>{ 
     console.log ('sever work');
 })//Listen is an  express function  order   
