@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router(); //child of the app 
 const User = require('../models/user'); //import the user model
-
+const bcrypt = require('bcrypt');
  router.post('/add', (req, res)=>{ //res: the response of the APi  // req: request contine the data that the user send in the api 
         data = req.body  //read the data in the body 
         user = new User(data) //instance of user model
@@ -103,5 +103,38 @@ const User = require('../models/user'); //import the user model
             )
     })
 
+//----------------------------
+//request add with async await
+ router.post('/register ', async (req, res)=>{  
+        try{
+            data = req.body  
+            user = new User(data)
+            salt = bcrypt.genSaltSync(10)
+            crypiedPass = await bcrypt.hashSync(data.password, salt)
+            savedUser = await user.save()  
+            res.status(200).send(savedUser)
+
+        }catch (err){
+            res.status(400).send(err)
+        }
+
+        console.log('add work');
+    });
+//request add with async await
+ router.post('/login ', async (req, res)=>{  
+        try{
+            data = req.body  
+            user = new User(data)
+            salt = bcrypt.genSaltSync(10)
+            crypiedPass = await bcrypt.hashSync(data.password, salt)
+            savedUser = await user.save()  
+            res.status(200).send(savedUser)
+
+        }catch (err){
+            res.status(400).send(err)
+        }
+
+        console.log('add work');
+    });
 
 module.exports = router;

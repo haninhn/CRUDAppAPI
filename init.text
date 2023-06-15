@@ -15,8 +15,8 @@
    npm i mongoose 
  6- Create database and collection in mongodb atlas
  7- create schema file
- 8-create model files
- 9-connect the routes to models
+ 8- create model files
+ 9- connect the routes to models
  ## API Routes
 
  ### /api/machin/gressedMachines/
@@ -42,3 +42,5 @@
     400 bad request
     404 Not found 
     401 unothorized
+10 - register login crypte register  
+     npm i bcrypt
