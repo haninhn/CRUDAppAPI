@@ -1,10 +1,10 @@
 import './config/connect'; // TELL the main classe that a have to work with DB
 import express, { json } from 'express';
-
-
 const User = require('./models/user'); //import the user model
 const app = express() //import express library 
 app.use(json()); //to make the app read and accept data de type JSON 
+const Machins = require('./models/Machin'); //import the user model
+const GressedMachins = require('./models/MachinGressed'); //import the user model
 
 
 app.post('/add', (req, res)=>{  //res: the response of the APi  // req: request contine the data that the user send in the api 
@@ -77,14 +77,23 @@ app.get('/all', async (req, res)=>{
 
   })
 
-app.put('/update', (req, res)=>{
+app.put('/update/:id', (req, res)=>{
+    id = req.params.id;
+    newData = req.body;  // read data from body
+    User.findByIdAndUpdate({_id: id}, newData)   //updated user with id and new data 
+    .then(
+        (updated)=>{
+            res.send(updated)
+        }
+    )
+    .catch((err)=> {
+        (err)=>{
+            res.send(err)
+        }
+    }
+    )
     console.log('update work');
     res.send('Add request received'); 
-})
-
-app.delete('/delete', (req, res)=>{
-    console.log('delete work');
-    res.send('delete request received'); 
 })
 
 app.delete('/delete:id', (req, res)=>{
@@ -99,9 +108,62 @@ app.delete('/delete:id', (req, res)=>{
             }
         )
 })
+//-------------------------------------------------------
+
+//Machin gressed
+app.post('/gressedMachines/add', (req, res)=>{  
+    data = req.body  
+   const gressedMachin = new GressedMachins(data) 
+    gressedMachin.save() 
+            .then((savedUser)=> 
+            {
+                res.send(savedUser)  
+            }).catch((err)=>
+               {
+                    res.send(err)
+                }
+            )
+    console.log('add work');
+    res.send('Add request received'); 
+});
+
+//Machin gressed for current day notif
+app.get('/gressedMachines/get', (req, res)=>{  
+    data = req.body  
+   const gressedMachin = new GressedMachins(data) 
+    gressedMachin.save() 
+            .then((savedGressedMachin)=> 
+            {
+                res.send(savedGressedMachin)  
+            }).catch((err)=>
+               {
+                    res.send(err)
+                }
+            )
+});
+//--------------------------------------------------------
+
+//Get All Machin in usine 
+app.get('/allMachines/get', (req, res)=>{  
+    data = req.body  
+   const machins = new Machins(data) 
+    machins.save() 
+            .then((savedMachins)=> 
+            {
+                res.send(savedMachins)  
+            }).catch((err)=>
+               {
+                    res.send(err)
+                }
+            )
+    console.log('add work');
+    res.send('Add request received'); 
+});
 
 app.listen( 3000, ()=>{ 
     console.log ('sever work');
-})//Listen is an  express function  order   
+})
+
+//Listen is an  express function  order   
 //to keep the server always running unless we stop 
 //it it take 2 paramùs the port and thed function 

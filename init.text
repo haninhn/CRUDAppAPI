@@ -13,3 +13,26 @@
    npm Install express
 5- connect to db mangoos suit a library
    npm i mongoose 
+ 6- Create database and collection in mongodb atlas
+ 7- create schema file
+ 8-create model files
+ 9-connect the routes to models
+ ## API Routes
+ ### /api/notes
+ * GET - returns all notes from DB
+ * POST - adds new note into DB
+ ### /api/notes/:id
+ * DELETE - deletes specific note by id
+ # License
+ s
+ ir <NAME> 2021
+ MIT license
+ ![License](https://img.shields.io/badge/license-MIT-blue)
+ <|endoftext|>
+
+    Status exmple 
+    200 succes 
+    500 Senderver error 
+    400 bad request
+    404 Not found 
+    401 unothorized
