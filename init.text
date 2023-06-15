@@ -13,3 +13,34 @@
    npm Install express
 5- connect to db mangoos suit a library
    npm i mongoose 
+ 6- Create database and collection in mongodb atlas
+ 7- create schema file
+ 8- create model files
+ 9- connect the routes to models
+ ## API Routes
+
+ ### /api/machin/gressedMachines/
+ * GET - returns all gressed machines from DB
+ * POST - adds new gressed machines into DB
+
+ ### /api/machin/machine/
+ * GET - returns all Factory machines from DB
+ * POST - adds new  machines into DB
+
+ ### /api/notes/:id
+ * DELETE - deletes specific user by id
+ # License
+ s
+ ir <NAME> 2021
+ MIT license
+ ![License](https://img.shields.io/badge/license-MIT-blue)
+ <|endoftext|>
+
+    Status exmple 
+    200 succes 
+    500 Senderver error 
+    400 bad request
+    404 Not found 
+    401 unothorized
+10 - register login crypte register  
+     npm i bcrypt

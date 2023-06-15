@@ -10,6 +10,9 @@ const UserSchema = new Schema({
   },
   number: {
     type: Number
+  },
+  password: {
+     type: String
   }
 });
 
