@@ -18,11 +18,17 @@
  8-create model files
  9-connect the routes to models
  ## API Routes
- ### /api/notes
- * GET - returns all notes from DB
- * POST - adds new note into DB
+
+ ### /api/machin/gressedMachines/
+ * GET - returns all gressed machines from DB
+ * POST - adds new gressed machines into DB
+
+ ### /api/machin/machine/
+ * GET - returns all Factory machines from DB
+ * POST - adds new  machines into DB
+
  ### /api/notes/:id
- * DELETE - deletes specific note by id
+ * DELETE - deletes specific user by id
  # License
  s
  ir <NAME> 2021
