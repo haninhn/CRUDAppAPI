@@ -1,5 +1,5 @@
-import './config/connect'; // TELL the main classe that a have to work with DB
-import express, { json } from 'express';
+require('./config/connect'); // TELL the main classe that a have to work with DB
+const express = require('express')
 const User = require('./models/user'); //import the user model
 const app = express() //import express library 
 app.use(json()); //to make the app read and accept data de type JSON 
@@ -22,7 +22,7 @@ app.post('/add', (req, res)=>{  //res: the response of the APi  // req: request 
     console.log('add work');
     res.send('Add request received'); // Send a response to the client
 });
-//request with async await
+//request addwith async await
 app.post('/create ', async (req, res)=>{  
     try{
 
@@ -66,7 +66,7 @@ app.get('/all', async (req, res)=>{
    )
   })
 
-  app.get('/userbyid/:id',async(req, res)=>{
+  app.get('/userbyid/:id',async(req, res)=>{//:id =params url params 
     try{
         id = req.params.id;
         user =  await User.findOne({_id: id })
@@ -77,40 +77,40 @@ app.get('/all', async (req, res)=>{
 
   })
 
-app.put('/update/:id', (req, res)=>{
-    id = req.params.id;
-    newData = req.body;  // read data from body
-    User.findByIdAndUpdate({_id: id}, newData)   //updated user with id and new data 
-    .then(
-        (updated)=>{
-            res.send(updated)
-        }
-    )
-    .catch((err)=> {
-        (err)=>{
-            res.send(err)
-        }
-    }
-    )
-    console.log('update work');
-    res.send('Add request received'); 
-})
-
-app.delete('/delete:id', (req, res)=>{
-    id = req.params.id
-    user.findOneDelete({_id:id}).then(
-        (deleteUser)=>{
-            res.send(deletedUser)
-        })
-        .catch(
+    app.put('/update/:id', (req, res)=>{
+        id = req.params.id;
+        newData = req.body;  // read data from body
+        User.findByIdAndUpdate({_id: id}, newData)   //updated user with id and new data 
+        .then(
+            (updated)=>{
+                res.send(updated)
+            }
+        )
+        .catch((err)=> {
             (err)=>{
                 res.send(err)
             }
+        }
         )
-})
+    })
+
+
+    app.delete('/delete/:id', (req, res)=>{  //:id =params url params  
+        id = req.params.id
+        User.findOneDelete({_id:id}).then(
+            (deletedUser)=>{
+                res.send(deletedUser)
+            })
+            .catch(
+                (err)=>{
+                    res.send(err)
+                }
+            )
+    })
+
 //-------------------------------------------------------
 
-//Machin gressed
+// add Machin gressed
 app.post('/gressedMachines/add', (req, res)=>{  
     data = req.body  
    const gressedMachin = new GressedMachins(data) 
@@ -123,42 +123,49 @@ app.post('/gressedMachines/add', (req, res)=>{
                     res.send(err)
                 }
             )
-    console.log('add work');
-    res.send('Add request received'); 
 });
 
-//Machin gressed for current day notif
-app.get('/gressedMachines/get', (req, res)=>{  
+//get Machin gressed for current day notif
+app.get('/gressedMachines/all', async (req, res)=>{  
+  
+  try{ 
+    const gressedMachin  = await GressedMachins.find();
+    res.send(gressedMachin);
+
+  } catch(error){
+    res.send(error)
+  }
+  })
+
+
+//add Machin in Usin
+app.post('/machine/add', (req, res)=>{  
     data = req.body  
-   const gressedMachin = new GressedMachins(data) 
-    gressedMachin.save() 
-            .then((savedGressedMachin)=> 
+   const machine = new Machins(data) 
+    machine.save() 
+            .then((savedMachine)=> 
             {
-                res.send(savedGressedMachin)  
+                res.send(savedMachine)  
             }).catch((err)=>
                {
                     res.send(err)
                 }
             )
 });
-//--------------------------------------------------------
 
-//Get All Machin in usine 
-app.get('/allMachines/get', (req, res)=>{  
-    data = req.body  
-   const machins = new Machins(data) 
-    machins.save() 
-            .then((savedMachins)=> 
-            {
-                res.send(savedMachins)  
-            }).catch((err)=>
-               {
-                    res.send(err)
-                }
-            )
-    console.log('add work');
-    res.send('Add request received'); 
-});
+//get all Machines 
+app.get('/machine/all', async (req, res)=>{  
+
+  try{ 
+    const machines  = await Machins.find();
+    res.send(machines);
+
+  } catch(error){
+    res.send(error)
+  }
+  })
+
+
 
 app.listen( 3000, ()=>{ 
     console.log ('sever work');
