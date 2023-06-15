@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router(); //child of the app 
 const User = require('../models/user'); //import the user model
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken')
+
  router.post('/add', (req, res)=>{ //res: the response of the APi  // req: request contine the data that the user send in the api 
         data = req.body  //read the data in the body 
         user = new User(data) //instance of user model
@@ -105,39 +107,60 @@ const bcrypt = require('bcrypt');
 
 //----------------------------
 //request add with async await
- router.post('/register ', async (req, res)=>{  
-        try{
+ router.post('/register', async (req, res)=>{  
             data = req.body  
             user = new User(data)
             salt = bcrypt.genSaltSync(10)
-            crypiedPass = await bcrypt.hashSync(data.password, salt)
-            savedUser = await user.save()  
-            res.status(200).send(savedUser)
+            crypiedPasse = await bcrypt.hashSync(data.password, salt) //crypt password
+            user.password = crypiedPasse;
+            user.save().then(
+                (savedUser)=>{
+                     res.status(200).send(savedUser)
+                })
+                .catch(
+                    (err)=>{
+                     res.status(400).send(err)
 
-        }catch (err){
-            res.status(400).send(err)
-        }
-
-        console.log('add work');
+                    }
+                )
     });
-    
+
 //request add with async await
- router.post('/login ', async (req, res)=>{  
-        try{
-            data = req.body  
-            user = new User(data)
-            salt = bcrypt.genSaltSync(10)
-            crypiedPass = await bcrypt.hashSync(data.password, salt)
-            savedUser = await user.save()  
-            res.status(200).send(savedUser)
+router.post('/login', async (req, res)=>{  
+    data = req.body  
+    user = new User.findOne({number: data.number})
+    if(!user){
+        res.status(404).send('number or password invalid !')
 
-        }catch (err){
-            res.status(400).send(err)
-        }
+    }else{
+            validPass = bcrypt.compareSync(data.password, user.password)
+            if(!validPass){
+                res.status(401).send(' email ort password invalid !')
+            }else{
+                payload = {
+                  _id: user._id,
+                  number: user.number, 
+                  name: user.name
+            }
+            token = jwt.sign(payload, '1234567')  //create token
+            res.status(200).send({mytoken: token})
+            }
 
-        console.log('add work');
-    });
+    }
+    salt = bcrypt.genSaltSync(10)
+    crypiedPasse = await bcrypt.hashSync(data.password, salt) //crypt password
+    user.password = crypiedPasse;
+    user.save().then(
+        (savedUser)=>{
+             res.status(200).send(savedUser)
+        })
+        .catch(
+            (err)=>{
+             res.status(400).send(err)
 
+            }
+        )
+});
 //Exmples
 //employee manager
 //get all employee
