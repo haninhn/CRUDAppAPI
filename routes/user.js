@@ -164,7 +164,7 @@ router.post('/login', async (req, res)=>{
 //Exmples
 //employee manager
 //get all employee
-app.get('/allEmployee', async (req, res)=>{  
+router.get('/allEmployee', async (req, res)=>{  
     try{ 
       const  users = await User.find();  
       res.send(users);
@@ -175,7 +175,7 @@ app.get('/allEmployee', async (req, res)=>{
 })
 
 //add all employee
-app.post('/addEmployee', (req, res)=>{  
+router.post('/addEmployee', (req, res)=>{  
     console.log('add work')
     const  data = req.body 
     const  user = new User(data) 
@@ -190,7 +190,7 @@ app.post('/addEmployee', (req, res)=>{
     )
 });
 
-app.delete('/deleteEmployee/:id', (req, res)=>{ 
+router.delete('/deleteEmployee/:id', (req, res)=>{ 
     id = req.params.id
     User.findOneAndDelete({_id:id})
     .then((deleteUser)=>{
@@ -201,10 +201,6 @@ app.delete('/deleteEmployee/:id', (req, res)=>{
                 res.send(err)
             }
         )
-})
-
-app.listen( 3000, ()=>{ 
-    console.log('Server is running on port 3000');
 })
 
 module.exports = router;

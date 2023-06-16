@@ -1,5 +1,6 @@
-import { MODEL } from 'mongoose';
-const Machin = MODEL('Machin', {
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+const machineSchema = new Schema({
  idMachine:{
     type:String
  },
@@ -8,4 +9,6 @@ const Machin = MODEL('Machin', {
  }
 
 })
-module.exports = Machin
+const machine = mongoose.model('Machine', machineSchema);
+
+module.exports = machine

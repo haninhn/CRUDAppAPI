@@ -1,5 +1,7 @@
-import { MODEL } from 'mongoose';
-const MachinGressed = MODEL('MachinGressed', {
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+const MachinGressedSchema= new Schema({
  idMachine:{
     type:String
  },
@@ -7,4 +9,8 @@ const MachinGressed = MODEL('MachinGressed', {
    type:Date,
  }
 })
-module.exports = MachinGressed
+const machinGressed = mongoose.model('MachinGressed', MachinGressedSchema);
+
+module.exports = machinGressed
+
+

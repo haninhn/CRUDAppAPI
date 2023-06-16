@@ -1,7 +1,7 @@
 const express = require('express');
-const router = express.Router 
-const Machins = require('./models/Machin'); 
-const GressedMachins = require('./models/MachinGressed');
+const router = express.Router(); 
+const GressedMachins = require('../models/MachinGressed');
+const Machins = require('../models/Machine'); 
 
 // add Machin gressed
 router.post('/gressedMachines', (req, res)=>{  
@@ -9,10 +9,11 @@ router.post('/gressedMachines', (req, res)=>{
     const gressedMachin = new GressedMachins(data) 
     gressedMachin.save() 
             .then((savedGressedMachines)=> 
-            {
-                res.status(200).send(savedGressedMachines)  
-            }).catch((err)=>
-               {
+                {
+                    res.status(200).send(savedGressedMachines)  
+                }
+            ).catch((err)=>
+                {
                 res.status(400).send(err)  
                 }
             )
@@ -46,7 +47,7 @@ router.post('/machine', (req, res)=>{
 });
 
 //get all Machines 
-router.get('/api/machine', async (req, res)=>{  
+router.get('/machine', async (req, res)=>{  
 
   try{ 
     const machines  = await Machins.find();
