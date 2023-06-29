@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router(); 
 const GressedMachins = require('../models/MachinGressed');
-const Machins = require('../models/Machine'); 
+const Machins = require('../models/machine'); 
 
 // add Machin gressed
 router.post('/gressedMachines', (req, res)=>{  
@@ -10,10 +10,13 @@ router.post('/gressedMachines', (req, res)=>{
     gressedMachin.save() 
             .then((savedGressedMachines)=> 
                 {
-                    res.status(200).send(savedGressedMachines)  
+                  console.log(' work');
+                  res.status(200).send(savedGressedMachines)  
                 }
             ).catch((err)=>
                 {
+                  console.log('dont work');
+ 
                 res.status(400).send(err)  
                 }
             )
