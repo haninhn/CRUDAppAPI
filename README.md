@@ -1,6 +1,5 @@
-# CRUDAppAPI
-The project includes comments to aid anyone looking to learn Node.js with Mango DB. Node JS CRUD app (login, add, delete, update).
-
+# CRUD App API node js
+This project includes detailed comments to help anyone learning Node.js with MongoDB. It’s a simple Node.js CRUD application featuring user login, add, delete, and update functionalities.
 
 Fist of all 
 1- Installation: 
